@@ -39,3 +39,27 @@ For the development I use the Sandobox Server API URL, but during my tests I hav
 52.85.14.127    sandbox.musement.com
 52.85.14.11     sandbox.musement.com
 ```
+
+### Weather's API
+
+I have implemented a service class (and its unit test) to access to Weather's Remote REST API:
+
+- `src/Service/WeatherAPI.php`
+- `tests/Unit/Service/WeatherAPITest.php`
+
+The Weather's API URL used for this implementation is:
+
+[http://api.weatherapi.com/v1/forecast.json?key={api-key}&q={latitude},{longitude}&days=2]
+
+- {api-key}: The specific API key of the account forwarding requests
+- {latitude}: Latitude of the location for the forecast
+- {longitude}: Longitude of the location for the forecast
+
+The WeatherAPI service has the following main methods:
+
+```php
+    /**
+     * @return array<int, string>
+     */
+    public function getForecastForLastDays(float $latitude, float $longitude): array
+```
