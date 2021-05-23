@@ -1,0 +1,36 @@
+version: "3.5"
+
+services:
+
+  nginx:
+    platform: linux/x86_64
+    image: nginx:${NGINX_VERSION:-1.19}-alpine
+    depends_on:
+      - php-fpm
+    environment:
+      - NGINX_HOST=${NGINX_HOST:-_}
+      - NGINX_ROOT=${NGINX_ROOT:-/app/public}
+      - PHP_HOST=php-fpm
+      - PHP_PORT=${PHP_PORT:-9000}
+    ports:
+      - "${NGINX_PORT:-80}:80"
+    volumes:
+      - .:/app
+      - ./docker/nginx/templates:/etc/nginx/templates
+
+  php-fpm:
+    platform: linux/x86_64
+    build:
+      context: docker/php
+      target: development
+      args:
+        - PHP_VERSION=${PHP_VERSION:-7.4}
+        - PHP_SYSTEM_TZ=${PHP_SYSTEM_TZ:-Europe/London}
+        - XDEBUG_MODE=${XDEBUG_MODE:-debug}
+        - XDEBUG_CLIENT_PORT=${XDEBUG_CLIENT_PORT:-9003}
+        - XDEBUG_CLIENT_HOST=${XDEBUG_CLIENT_HOST:-localhost}
+    ports:
+      - "${PHP_PORT:-9000}:9000"
+      - "${XDEBUG_CLIENT_PORT:-9003}:9003"
+    volumes:
+      - .:/app
