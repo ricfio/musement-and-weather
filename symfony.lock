@@ -17,11 +17,38 @@
     "dnoegel/php-xdg-base-dir": {
         "version": "v0.1.1"
     },
+    "doctrine/annotations": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "a2759dd6123694c8d901d0ec80006e044c2e6457"
+        },
+        "files": [
+            "config/routes/annotations.yaml"
+        ]
+    },
+    "doctrine/lexer": {
+        "version": "1.2.1"
+    },
     "felixfbecker/advanced-json-rpc": {
         "version": "v3.2.0"
     },
     "felixfbecker/language-server-protocol": {
         "version": "1.5.1"
+    },
+    "friendsofphp/php-cs-fixer": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "be2103eb4a20942e28a6dd87736669b757132435"
+        },
+        "files": [
+            ".php-cs-fixer.dist.php"
+        ]
     },
     "netresearch/jsonmapper": {
         "version": "v2.1.0"
@@ -31,6 +58,9 @@
     },
     "openlss/lib-array2xml": {
         "version": "1.0.0"
+    },
+    "php-cs-fixer/diff": {
+        "version": "v2.0.2"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -142,6 +172,9 @@
     "symfony/http-kernel": {
         "version": "v5.2.9"
     },
+    "symfony/options-resolver": {
+        "version": "v5.2.4"
+    },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.22.1"
     },
@@ -156,6 +189,9 @@
     },
     "symfony/polyfill-php80": {
         "version": "v1.22.1"
+    },
+    "symfony/process": {
+        "version": "v5.2.7"
     },
     "symfony/routing": {
         "version": "5.1",
@@ -173,6 +209,9 @@
     },
     "symfony/service-contracts": {
         "version": "v2.4.0"
+    },
+    "symfony/stopwatch": {
+        "version": "v5.2.7"
     },
     "symfony/string": {
         "version": "v5.2.8"
