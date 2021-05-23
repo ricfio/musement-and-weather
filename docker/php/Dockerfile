@@ -23,14 +23,16 @@ FROM base AS development
 RUN apk add --no-cache bash git tzdata gettext
 
 # INSTALL: Xdebug
+RUN apk --no-cache add $PHPIZE_DEPS && \
+    pecl install xdebug && \
+    docker-php-ext-enable xdebug
+
+# CONFIG: Xdebug
 ARG XDEBUG_MODE=off
 ARG XDEBUG_CLIENT_PORT=9003
 ARG XDEBUG_CLIENT_HOST=host.docker.internal
 COPY templates/docker-php-ext-xdebug.ini.template "$PHP_INI_DIR/conf.d/"
-RUN apk --no-cache add $PHPIZE_DEPS && \
-    pecl install xdebug && \
-    docker-php-ext-enable xdebug && \
-    export XDEBUG_MODE=$XDEBUG_MODE && \
+RUN export XDEBUG_MODE=$XDEBUG_MODE && \
     export XDEBUG_CLIENT_PORT=$XDEBUG_CLIENT_PORT && \
     export XDEBUG_CLIENT_HOST=$XDEBUG_CLIENT_HOST && \
     envsubst < "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini.template" > "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" && \
