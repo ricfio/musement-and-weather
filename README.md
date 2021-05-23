@@ -1,5 +1,8 @@
 # Musement and Weather
 
+This is a technical exercise for Backend PHP developers.  
+You can find the details about the problem to solve in the [PROBLEM.md](./doc/PROBLEM.md) file.  
+
 ## Installation
 
 Build and Start the containers:
