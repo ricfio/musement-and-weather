@@ -3,6 +3,8 @@
 This is a technical exercise for Backend PHP developers.  
 You can find the details about the problem to solve in the [PROBLEM.md](./doc/PROBLEM.md) file.  
 
+The possibile solution proposed by **Riccardo Fiorenza** in this repository was explained in the [SOLUTION.md](./doc/SOLUTION.md) file.
+
 ## Installation
 
 Build and Start the containers:

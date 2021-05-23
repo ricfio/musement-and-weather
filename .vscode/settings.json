@@ -21,4 +21,11 @@
         "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
         "editor.formatOnSave": true,
     },
+    "psalm.phpExecutablePath": "/usr/local/bin/php",
+    "psalm.phpExecutableArgs": [
+        "-dxdebug.remote_enable=0",
+    ],
+    "psalm.configPaths": [
+        "psalm.xml",
+    ],
 }
