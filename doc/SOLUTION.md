@@ -80,3 +80,50 @@ The WeatherAPI service has the following main methods:
      */
     public function getForecastForLastDays(float $latitude, float $longitude): array
 ```
+
+#### Weather's API secret
+
+The API key is sensitive information, so it has been encrypted using the Symfony Secret System.  
+
+```bash
+php bin/console secrets:generate-keys
+php bin/console secrets:generate-keys --env=prod
+```
+
+```bash
+php bin/console secrets:set WEATHER_API_KEY
+php bin/console secrets:set WEATHER_API_KEY --env=prod
+php bin/console secrets:list --reveal
+```
+
+So, I have appended the Weather API to the service configuration (`config/services.yaml`) with an alias for testing:
+
+```yaml
+    App\Service\WeatherAPI:
+        arguments: 
+            $secret: '%env(WEATHER_API_KEY)%'
+    
+    service.weather_api:
+        alias: App\Service\WeatherAPI
+        public: true
+```
+
+and I have added the secret parameter in the Weather API service constructor:
+
+```php
+    public function __construct(string $secret)
+    {
+        $this->client = HttpClient::create();
+        $this->secret = $secret;
+    }
+```
+
+Subsequently, I also implemented a specific Application Test in addition to the previously implemented Unit Test:
+
+- `tests/Application/Service/WeatherAPITest.php`
+
+and I have added the enviornment variable WEATHER_API_KEY in the `.env.test` file for testing:  
+
+```console
+WEATHER_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+```
