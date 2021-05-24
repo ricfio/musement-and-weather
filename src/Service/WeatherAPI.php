@@ -11,18 +11,19 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class WeatherAPI
 {
-    private const API_URL_PRODUCTION = 'http://api.weatherapi.com/v1';
     private const FORECAST_LASTDAYS = 2;
 
-    private string $url = self::API_URL_PRODUCTION;
+    private string $url;
     private string $secret;
 
     private HttpClientInterface $client;
 
-    public function __construct(string $secret)
+    public function __construct(string $url, string $secret)
     {
-        $this->client = HttpClient::create();
+        $this->url = $url;
         $this->secret = $secret;
+
+        $this->client = HttpClient::create();
     }
 
     private function checkResponse(ResponseInterface $response, string $url): void

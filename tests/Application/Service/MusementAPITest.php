@@ -2,19 +2,26 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Service;
+namespace App\Tests\Application\Service;
 
 use App\Service\MusementAPI;
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-final class MusementAPITest extends TestCase
+final class MusementAPITest extends KernelTestCase
 {
     private MusementAPI $api;
 
     protected function setUp(): void
     {
-        $_ENV['MUSEMENT_API_URL'] = 'https://sandbox.musement.com/api/v3';
-        $this->api = new MusementAPI($_ENV['MUSEMENT_API_URL']);
+        self::bootKernel();
+        $container = self::$container;
+        $service = $container->get('service.musement_api');
+        $this->assertNotNull($service);
+        $this->assertInstanceOf(MusementAPI::class, $service);
+        if (is_object($service) && MusementAPI::class == get_class($service)) {
+            $this->api = $service;
+        }
+        $this->assertInstanceOf(MusementAPI::class, $this->api);
     }
 
     public function testGetCityHasFoundMilanWithRightLatitudeAndLongitude(): void

@@ -11,15 +11,14 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class MusementAPI
 {
-    private const API_URL_SANDBOX = 'https://sandbox.musement.com/api/v3';
-    private const API_URL_PRODUCTION = 'https://api.musement.com/api/v3';
-
-    private string $url = self::API_URL_SANDBOX;
+    private string $url;
 
     private HttpClientInterface $client;
 
-    public function __construct()
+    public function __construct(string $url)
     {
+        $this->url = $url;
+
         $this->client = HttpClient::create();
     }
 

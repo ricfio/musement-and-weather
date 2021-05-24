@@ -29,10 +29,19 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Service\MusementAPI:
+        arguments: 
+            $url: '%env(MUSEMENT_API_URL)%'
+    
     App\Service\WeatherAPI:
         arguments: 
+            $url: '%env(WEATHER_API_URL)%'
             $secret: '%env(WEATHER_API_KEY)%'
-    
+
+    service.musement_api:
+        alias: App\Service\MusementAPI
+        public: true
+            
     service.weather_api:
         alias: App\Service\WeatherAPI
         public: true
