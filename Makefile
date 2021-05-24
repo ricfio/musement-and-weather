@@ -30,7 +30,7 @@ fix:
 run:
 	./console.php print:city-forecast
 
-## HELP: test                   Test execution
+## HELP: test                   Tests execution
 .PHONY: test
 test:
 	vendor/bin/phpunit --testdox

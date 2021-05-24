@@ -43,3 +43,34 @@ If everything has worked correctly, you should see the Welcome Symfony Page open
 
 **NOTE**  
 In case of conflict problems with your host you can solve them by changing the ports in the `docker-compose.yml`.
+
+## Makefile
+
+```bash
+make
+```
+
+```console
+ all                    All checks
+ analyze                Static analysis
+ analyze-psalm          Static analysis (only with psalm)
+ analyze-phpstan        Static analysis (only with phpstan)
+ fix                    Code fixing
+ run                    Application run
+ test                   Tests execution
+```
+
+## Run Application
+
+```bash
+./console.php print:city-forecast
+```
+
+```console
+Processed city Amsterdam | Moderate rain - Patchy rain possible
+Processed city Paris | Moderate rain - Patchy rain possible
+Processed city Rome | Partly cloudy - Partly cloudy
+Processed city Milan | Heavy rain - Patchy rain possible
+... 
+Processed city Gothenburg | Partly cloudy - Moderate rain
+```
