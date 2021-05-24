@@ -4,7 +4,7 @@ help : Makefile
 
 ## HELP: all                    All checks
 .PHONY: all
-all: analyze fix test
+all: fix analyze test
 
 ## HELP: analyze                Static analysis
 .PHONY: analyze
@@ -24,6 +24,11 @@ analyze-phpstan:
 .PHONY: fix
 fix:
 	vendor/bin/php-cs-fixer fix
+
+## HELP: run                    Application run
+.PHONY: run
+run:
+	./console.php print:city-forecast
 
 ## HELP: test                   Test execution
 .PHONY: test

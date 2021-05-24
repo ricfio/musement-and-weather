@@ -45,3 +45,11 @@ services:
     service.weather_api:
         alias: App\Service\WeatherAPI
         public: true
+
+    # console commands
+    console.command.print_city_forecast:
+        public: true
+        class: App\Command\PrintCityForecastCommand
+        arguments:
+            - '@service.musement_api'
+            - '@service.weather_api'

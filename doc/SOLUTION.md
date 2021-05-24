@@ -127,3 +127,37 @@ and I have added the enviornment variable WEATHER_API_KEY in the `.env.test` fil
 ```console
 WEATHER_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
+
+### Console Application
+
+The problem requires the application to print to STDOUT, so I have to write a console application with a command.
+
+I have implemented the following command (and its Application Test) and added its constructor arguments in `services.yaml` file:
+
+- `src/Command/PrintCityForecastCommand.php`
+- `tests/Application/PrintCityForecastCommandTest.php`
+
+The test verifies that the output has the expected number of lines and the formatting.
+
+You can run the application (first, add the execution rights if need):
+
+```bash
+chmod +x console.php
+```
+
+```bash
+./console.php print:city-forecast
+```
+
+```console
+Processed city Amsterdam | Moderate rain - Patchy rain possible
+Processed city Paris | Moderate rain - Patchy rain possible
+Processed city Rome | Partly cloudy - Partly cloudy
+Processed city Milan | Heavy rain - Patchy rain possible
+Processed city Barcelona | Patchy rain possible - Cloudy
+... 
+Processed city Singapore | Patchy rain possible - Patchy rain possible
+Processed city Stockholm | Overcast - Patchy rain possible
+Processed city Malmö | Partly cloudy - Heavy rain
+Processed city Gothenburg | Partly cloudy - Moderate rain
+```
