@@ -19,12 +19,12 @@ class Forecast implements Stringable
         $this->text = $text;
     }
 
-    public function getText(): string
+    final public function __toString()
     {
         return $this->text;
     }
 
-    final public function __toString()
+    public function getText(): string
     {
         return $this->text;
     }
