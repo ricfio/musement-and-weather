@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use InvalidArgumentException;
+use Stringable;
 
-class City
+class City implements Stringable
 {
     private int $id;
     private string $name;
@@ -25,6 +26,11 @@ class City
         $this->name = $name;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
+    }
+
+    final public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): int

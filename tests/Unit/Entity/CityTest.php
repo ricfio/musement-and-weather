@@ -35,6 +35,7 @@ final class CityTest extends TestCase
 
     public function testCityName(): void
     {
+        $this->assertSame('Milan', strval($this->milan));
         $this->assertSame('Milan', $this->milan->getName());
     }
 
