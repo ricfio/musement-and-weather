@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\Forecast;
 use RuntimeException;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -44,7 +45,7 @@ class WeatherAPI
     }
 
     /**
-     * @return array<int, string>
+     * @return array<int, Forecast>
      */
     public function getForecastForLastDays(float $latitude, float $longitude): array
     {
@@ -57,12 +58,12 @@ class WeatherAPI
             throw new RuntimeException(sprintf('WebService has returned an invalid response at: %s', $url));
         }
         $forecastday = $data['forecast']['forecastday'];
-        /** @var array<int,string> */
+        /** @var array<int,Forecast> */
         $forecasts = [];
         /** @var array<string,array<string,array<string,string>>> $item */
         foreach ($forecastday as $item) {
             $condition = $item['day']['condition']['text'];
-            $forecasts[] = $condition;
+            $forecasts[] = new Forecast($condition);
         }
 
         return $forecasts;

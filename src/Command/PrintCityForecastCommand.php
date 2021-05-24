@@ -40,7 +40,7 @@ class PrintCityForecastCommand extends SymfonyCommand
         foreach ($cities as $city) {
             $city_forecasts = $this->weatherAPI->getForecastForLastDays($city->getLatitude(), $city->getLongitude());
 
-            $text = sprintf('Processed city %s | %s - %s', $city->getName(), $city_forecasts[0], $city_forecasts[1]);
+            $text = sprintf('Processed city %s | %s - %s', $city->getName(), $city_forecasts[0]->getText(), $city_forecasts[1]->getText());
             $output->writeln($text);
         }
 
