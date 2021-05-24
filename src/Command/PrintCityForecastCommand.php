@@ -37,14 +37,10 @@ class PrintCityForecastCommand extends SymfonyCommand
     private function printCitiesForecast(OutputInterface $output): int
     {
         $cities = $this->musementAPI->getCities();
-        /** @var array<string,mixed> $city */
         foreach ($cities as $city) {
-            $city_name = (string) $city['name'];
-            $city_latitude = (float) $city['latitude'];
-            $city_longitude = (float) $city['longitude'];
-            $city_forecasts = $this->weatherAPI->getForecastForLastDays($city_latitude, $city_longitude);
+            $city_forecasts = $this->weatherAPI->getForecastForLastDays($city->getLatitude(), $city->getLongitude());
 
-            $text = sprintf('Processed city %s | %s - %s', $city_name, $city_forecasts[0], $city_forecasts[1]);
+            $text = sprintf('Processed city %s | %s - %s', $city->getName(), $city_forecasts[0], $city_forecasts[1]);
             $output->writeln($text);
         }
 

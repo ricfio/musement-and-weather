@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\City;
 use RuntimeException;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -34,21 +35,28 @@ class MusementAPI
         }
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
+    private function buildCityFromRawData(array $data): City
+    {
+        return new City((int) $data['id'], (string) $data['name'], (float) $data['latitude'], (float) $data['longitude']);
+    }
+
     private function buildUrlforGetCity(int $id): string
     {
         return sprintf('%s/cities/%d', $this->url, $id);
     }
 
-    /**
-     * @return array<array-key, mixed>
-     */
-    public function getCity(int $id): array
+    public function getCity(int $id): City
     {
         $url = $this->buildUrlforGetCity($id);
         $response = $this->client->request('GET', $url);
         $this->checkResponse($response, $url);
+        /** @var array<string, mixed> $data */
+        $data = $response->toArray();
 
-        return $response->toArray();
+        return $this->buildCityFromRawData($data);
     }
 
     private function buildUrlforGetCities(): string
@@ -57,14 +65,20 @@ class MusementAPI
     }
 
     /**
-     * @return array<array-key, mixed>
+     * @return array<int, City>
      */
     public function getCities(): array
     {
         $url = $this->buildUrlforGetCities();
         $response = $this->client->request('GET', $url);
         $this->checkResponse($response, $url);
+        $rows = $response->toArray();
+        $cities = [];
+        /** @var array<string,mixed> $data */
+        foreach ($rows as $data) {
+            $cities[] = $this->buildCityFromRawData($data);
+        }
 
-        return $response->toArray();
+        return $cities;
     }
 }
