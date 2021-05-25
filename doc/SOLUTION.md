@@ -8,12 +8,12 @@ The proposed solution is built with the **Symfony** framework and uses **PHPUnit
 
 The environment also includes the following tools:
 
-- PHP Coding Standards Fixer
+- PHP Coding Standard Fixer
   - **php-cs-fixer**
 - PHP Static Analysis Tool
-  - **phpstan**
   - **psalm**
-
+  - **phpstan**
+  
 I also added a specific Makefile to quickly execute the more frequent commands, for more details:
 
 ```bash
