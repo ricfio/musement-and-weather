@@ -170,3 +170,92 @@ Processed city Stockholm | Overcast - Patchy rain possible
 Processed city Malmö | Partly cloudy - Heavy rain
 Processed city Gothenburg | Partly cloudy - Moderate rain
 ```
+
+## Step 2 | API design (no code required)
+
+### Set the forecast for a specific city on a specific day
+
+The following endpoint permits to save a textual forecast for a specific city on a specific day.  
+It will create a new forecast entry for the city (if no forecast exists for that day) or replace the previous forecast.  
+
+The request URL must have the "City Id" of an existing city and a not past day as the "Forecast Day".  
+The request Data must include the "Weather conditions" in the following json format: `{"text": "..."}`.  
+
+|                 |            |            |                                              |
+|-----------------|------------|------------|----------------------------------------------|
+| **Endpoint**    | `PUT /api/v3/cities/{cityId}/forecasts/{day}`                          |
+| **Parameters**  | `{cityId}` | `int`      | City Id                                      |
+|                 | `{day}`    | `string`   | Forecast Day (format: YYYY-MM-DD)            |
+| **Request**     |                                                                        |
+
+```json
+{
+    "text": ""
+}
+```
+
+Examples of possible "Weather conditions" are: "Partly cloudy", "Heavy rain".  
+
+| **Responses** |                                           |
+|:-------------:|-------------------------------------------|
+| 200           | Returned when successful                  |
+| 400           | Returned when data payload is incorrect   |
+| 403           | Returned when operation is not permitted  |
+| 404           | Returned when resource is not found       |
+| 503           | Returned when the service is unavailable  |
+
+The response code will be 200 if the forecast was successfully registered.  
+
+In all other cases the forecast will be discarded and not registered, here some examples of errors:  
+
+- 400: invalid day parameter format (use this format: YYYY-MM-DD)
+- 400: invalid weather conditions (use this format: {"text": ""})
+- 403: invalid day parameter value (must not be a past date)
+- 404: city not found
+
+### Read the forecast for a specific city on a specific day
+
+The following endpoint permits to get the current textual forecast for a specific city on a specific day.  
+It will return the current weather conditions for the city (if the forecast exists for that day).  
+
+The request URL must have the "City Id" of an existing city and a not past day as the "Forecast Day".  
+The "Forecast Day" can be expressed as the date of the required day in the format `{YYYY-MM-DD}` or one of the following alias:  
+
+- today
+- tomorrow
+
+|                 |            |            |                                              |
+|-----------------|------------|------------|----------------------------------------------|
+| **Endpoint**    | `GET /api/v3/cities/{cityId}/forecasts/{day}`                          |
+| **Parameters**  | `{cityId}` | `int`      | City Id                                      |
+|                 | `{day}`    | `string`   | Forecast Day ({YYYY-MM-DD}, today, tomorrow) |
+
+| **Responses** |                                           |
+|:-------------:|-------------------------------------------|
+| 200           | Returned when successful                  |
+| 400           | Returned when data payload is incorrect   |
+| 403           | Returned when operation is not permitted  |
+| 404           | Returned when resource is not found       |
+| 503           | Returned when the service is unavailable  |
+
+The response code will be 200 if the forecast was successfully returned in the response data.
+
+The responsa data will be an encoded json string similar to the following examples:  
+
+```json
+{
+    "text": "Moderate rain"
+}
+```
+
+```json
+{
+    "text": "Partly cloudy"
+}
+```
+
+In all other cases will be return only the response code corresponding to the error and no response data:  
+
+- 400: invalid day parameter format ({YYYY-MM-DD}, today, tomorrow)
+- 403: invalid day parameter value (must not be a past date)
+- 404: city not found
