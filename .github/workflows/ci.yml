@@ -44,5 +44,8 @@ jobs:
       - name: Run psalm (static analysis)
         run: ./vendor/bin/psalm
 
+      - name: Run phpstan (static analysis)
+        run: ./vendor/bin/phpstan
+
       - name: Run phpunit (tests)
         run: ./vendor/bin/phpunit
