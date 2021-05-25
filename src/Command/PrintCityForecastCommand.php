@@ -26,7 +26,7 @@ class PrintCityForecastCommand extends SymfonyCommand
     {
         $this->setName('print:city-forecast')
             ->setDescription('Print for each city the forecast for the next 2 days.')
-            ->setHelp('This command allows you to print for each city from Musement API the forecast for the next 2 days from Weather API.');
+            ->setHelp('Print for each city from Musement API the forecast for the next 2 days from Weather API.');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
@@ -40,7 +40,12 @@ class PrintCityForecastCommand extends SymfonyCommand
         foreach ($cities as $city) {
             $city_forecasts = $this->weatherAPI->getForecastForLastDays($city->getLatitude(), $city->getLongitude());
 
-            $text = sprintf('Processed city %s | %s - %s', $city->getName(), $city_forecasts[0]->getText(), $city_forecasts[1]->getText());
+            $text = sprintf(
+                'Processed city %s | %s - %s',
+                $city->getName(),
+                $city_forecasts[0]->getText(),
+                $city_forecasts[1]->getText()
+            );
             $output->writeln($text);
         }
 

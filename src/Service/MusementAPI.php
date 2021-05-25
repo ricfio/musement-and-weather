@@ -27,11 +27,13 @@ class MusementAPI
     {
         $statusCode = $response->getStatusCode();
         if (200 != $statusCode) {
-            throw new RuntimeException(sprintf('WebService has returned an invalid HTTP Status Code (%d) at: %s', $statusCode, $url));
+            $message = sprintf('WebService has returned an invalid HTTP Status Code (%d) at: %s', $statusCode, $url);
+            throw new RuntimeException($message);
         }
         $contentType = $response->getHeaders()['content-type'][0];
         if ('application/json' != $contentType) {
-            throw new RuntimeException(sprintf('WebService has returned an invalid Content-Type (%s) at: %s', $contentType, $url));
+            $message = sprintf('WebService has returned an invalid Content-Type (%s) at: %s', $contentType, $url);
+            throw new RuntimeException($message);
         }
     }
 
@@ -40,7 +42,12 @@ class MusementAPI
      */
     private function buildCityFromRawData(array $data): City
     {
-        return new City((int) $data['id'], (string) $data['name'], (float) $data['latitude'], (float) $data['longitude']);
+        return new City(
+            (int) $data['id'],
+            (string) $data['name'],
+            (float) $data['latitude'],
+            (float) $data['longitude']
+        );
     }
 
     private function buildUrlforGetCity(int $id): string

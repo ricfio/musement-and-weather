@@ -31,17 +31,26 @@ class WeatherAPI
     {
         $statusCode = $response->getStatusCode();
         if (200 != $statusCode) {
-            throw new RuntimeException(sprintf('WebService has returned an invalid HTTP Status Code (%d) at: %s', $statusCode, $url));
+            $message = sprintf('WebService has returned an invalid HTTP Status Code (%d) at: %s', $statusCode, $url);
+            throw new RuntimeException($message);
         }
         $contentType = $response->getHeaders()['content-type'][0];
         if ('application/json' != $contentType) {
-            throw new RuntimeException(sprintf('WebService has returned an invalid Content-Type (%s) at: %s', $contentType, $url));
+            $message = sprintf('WebService has returned an invalid Content-Type (%s) at: %s', $contentType, $url);
+            throw new RuntimeException($message);
         }
     }
 
     private function buildUrlforGetForecast(float $latitude, float $longitude): string
     {
-        return sprintf('%s/forecast.json?key=%s&q=%f,%f&days=%u', $this->url, $this->secret, $latitude, $longitude, self::FORECAST_LASTDAYS);
+        return sprintf(
+            '%s/forecast.json?key=%s&q=%f,%f&days=%u',
+            $this->url,
+            $this->secret,
+            $latitude,
+            $longitude,
+            self::FORECAST_LASTDAYS
+        );
     }
 
     /**
@@ -54,8 +63,14 @@ class WeatherAPI
         $this->checkResponse($response, $url);
         /** @var array<array-key,array<string,array>> */
         $data = $response->toArray();
-        if (!((array_key_exists('forecast', $data)) && (array_key_exists('forecastday', $data['forecast'])) && is_array($data['forecast']['forecastday']))) {
-            throw new RuntimeException(sprintf('WebService has returned an invalid response at: %s', $url));
+        if (
+            !(
+                (array_key_exists('forecast', $data)) &&
+                (array_key_exists('forecastday', $data['forecast'])) &&
+                (is_array($data['forecast']['forecastday'])))
+        ) {
+            $message = sprintf('WebService has returned an invalid response at: %s', $url);
+            throw new RuntimeException($message);
         }
         $forecastday = $data['forecast']['forecastday'];
         /** @var array<int,Forecast> */
