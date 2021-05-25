@@ -57,6 +57,15 @@ For the development I use the Sandobox Server API URL, but during my tests I hav
 52.85.14.11     sandbox.musement.com
 ```
 
+The permanent solution for this issue was adding the "extra_hosts" section in the `docker-compose.yml`:  
+
+```yaml
+    extra_hosts:
+      - "sandbox.musement.com:13.226.169.58"
+      - "sandbox.musement.com:52.85.14.127"
+      - "sandbox.musement.com:52.85.14.11"
+```
+
 ### Weather's API
 
 I have implemented a service class (and its unit test) to access to Weather's Remote REST API:

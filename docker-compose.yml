@@ -29,6 +29,10 @@ services:
         - XDEBUG_MODE=${XDEBUG_MODE:-debug}
         - XDEBUG_CLIENT_PORT=${XDEBUG_CLIENT_PORT:-9003}
         - XDEBUG_CLIENT_HOST=${XDEBUG_CLIENT_HOST:-localhost}
+    extra_hosts:
+      - "sandbox.musement.com:13.226.169.58"
+      - "sandbox.musement.com:52.85.14.127"
+      - "sandbox.musement.com:52.85.14.11"
     ports:
       - "${PHP_PORT:-9000}:9000"
       - "${XDEBUG_CLIENT_PORT:-9003}:9003"
