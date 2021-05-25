@@ -4,7 +4,15 @@ help : Makefile
 
 ## HELP: all                    All checks
 .PHONY: all
-all: fix analyze test
+all: cs analyze test
+
+## HELP: cs                     Coding Standard (php-cs-fixer)
+.PHONY: cs
+cs: cs-php-cs-fixer
+
+.PHONY: cs-php-cs-fixer
+cs-php-cs-fixer:
+	vendor/bin/php-cs-fixer fix
 
 ## HELP: analyze                Static analysis
 .PHONY: analyze
@@ -19,11 +27,6 @@ analyze-psalm:
 .PHONY: analyze-phpstan
 analyze-phpstan:
 	vendor/bin/phpstan
-
-## HELP: fix                    Code fixing
-.PHONY: fix
-fix:
-	vendor/bin/php-cs-fixer fix
 
 ## HELP: run                    Application run
 .PHONY: run
