@@ -21,12 +21,13 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
+		"davidanson.vscode-markdownlint",
+		"mhutchie.git-graph",
 		"bmewburn.vscode-intelephense-client",
 		"getpsalm.psalm-vscode-plugin",
 		"swordev.phpstan",
 		"emallin.phpunit",
 		"felixfbecker.php-debug",
-		"davidanson.vscode-markdownlint",
 	],
 
 	// For use with PHP or Apache (e.g.php -S localhost:8080 or apache2ctl start)
