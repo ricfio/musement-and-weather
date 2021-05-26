@@ -5,6 +5,41 @@ This is a technical exercise for Backend PHP developers.
 You can find the details about the problem to solve in the [PROBLEM.md](./doc/PROBLEM.md) file.  
 The possibile solution proposed by **Riccardo Fiorenza** in this repository was explained in the [SOLUTION.md](./doc/SOLUTION.md) file.
 
+## Quick start
+
+1. Clone this repository
+2. Build the containers
+3. Open a container shell (enter in the container)
+4. Install dependencies (from inside the container)
+
+### Step 1: Clone this repository
+
+```bash
+git clone https://github.com/ricfio/musement-and-weather.git
+```
+
+### Step 2: Build the containers
+
+```bash
+cd musement-and-weather
+docker-compose up --build -d
+```
+
+### Step 3: Open a container shell (enter in the container)
+
+```bash
+docker-compose exec php-fpm bash
+```
+
+### Step 4: Install dependencies (from inside the container)
+
+```bash
+composer install
+```
+
+Now you have completed all the installation steps and you are ready to run the application.  
+For further details see [Installation](#Installation) section.
+
 ## Application
 
 The software consists in a Console Application implemented using the [Symfony](https://symfony.com/) framework.  
@@ -138,6 +173,12 @@ php -v
 composer -V
 symfony -V
 make -v
+```
+
+To complete the installation you need to run the command:
+
+```bash
+composer install
 ```
 
 If everything has worked correctly, you should see the Welcome Symfony Page opening the following url in your browser:
