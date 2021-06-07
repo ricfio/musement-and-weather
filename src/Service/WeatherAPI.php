@@ -6,7 +6,6 @@ namespace App\Service;
 
 use App\Entity\Forecast;
 use RuntimeException;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -19,12 +18,12 @@ class WeatherAPI
 
     private HttpClientInterface $client;
 
-    public function __construct(string $url, string $secret)
+    public function __construct(HttpClientInterface $weatherApiClient, string $url, string $secret)
     {
         $this->url = $url;
         $this->secret = $secret;
 
-        $this->client = HttpClient::create();
+        $this->client = $weatherApiClient;
     }
 
     private function checkResponse(ResponseInterface $response, string $url): void

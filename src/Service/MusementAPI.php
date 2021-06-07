@@ -6,7 +6,6 @@ namespace App\Service;
 
 use App\Entity\City;
 use RuntimeException;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -16,11 +15,11 @@ class MusementAPI
 
     private HttpClientInterface $client;
 
-    public function __construct(string $url)
+    public function __construct(HttpClientInterface $musementApiClient, string $url)
     {
         $this->url = $url;
 
-        $this->client = HttpClient::create();
+        $this->client = $musementApiClient;
     }
 
     private function checkResponse(ResponseInterface $response, string $url): void
