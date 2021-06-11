@@ -9,13 +9,17 @@ help : Makefile
 .PHONY: all
 all: cs sa test
 
-## HELP:  cs           Coding Standard (php-cs-fixer)
+## HELP:  cs           Coding Style (php-cs-fixer, phpmd)
 .PHONY: cs
-cs: cs-php-cs-fixer
+cs: cs-php-cs-fixer cs-phpmd
 
 .PHONY: cs-php-cs-fixer
 cs-php-cs-fixer:
 	./vendor/bin/php-cs-fixer fix
+
+.PHONY: cs-phpmd
+cs-phpmd:
+	./vendor/bin/phpmd src,tests ansi cleancode,codesize,controversial,design,naming,unusedcode --exclude src/Kernel.php
 
 ## HELP:  sa           Static Analysis (psalm, phpstan)
 .PHONY: sa

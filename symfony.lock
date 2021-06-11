@@ -65,6 +65,9 @@
     "openlss/lib-array2xml": {
         "version": "1.0.0"
     },
+    "pdepend/pdepend": {
+        "version": "2.9.1"
+    },
     "phar-io/manifest": {
         "version": "2.0.1"
     },
@@ -82,6 +85,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
+    },
+    "phpmd/phpmd": {
+        "version": "2.10.1"
     },
     "phpspec/prophecy": {
         "version": "1.13.0"
