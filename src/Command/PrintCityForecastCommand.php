@@ -29,6 +29,9 @@ class PrintCityForecastCommand extends SymfonyCommand
             ->setHelp('Print for each city from Musement API the forecast for the next 2 days from Weather API.');
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         return $this->printCitiesForecast($output);
@@ -38,13 +41,12 @@ class PrintCityForecastCommand extends SymfonyCommand
     {
         $cities = $this->musementAPI->getCities();
         foreach ($cities as $city) {
-            $city_forecasts = $this->weatherAPI->getForecastForLastDays($city->getLatitude(), $city->getLongitude());
-
+            $cityForecasts = $this->weatherAPI->getForecastForLastDays($city->getLatitude(), $city->getLongitude());
             $text = sprintf(
                 'Processed city %s | %s - %s',
                 $city->getName(),
-                $city_forecasts[0]->getText(),
-                $city_forecasts[1]->getText()
+                $cityForecasts[0]->getText(),
+                $cityForecasts[1]->getText()
             );
             $output->writeln($text);
         }

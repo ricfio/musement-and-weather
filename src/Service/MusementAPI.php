@@ -49,11 +49,17 @@ class MusementAPI
         );
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ShortVariable)
+     */
     private function buildUrlforGetCity(int $id): string
     {
         return sprintf('%s/cities/%d', $this->url, $id);
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ShortVariable)
+     */
     public function getCity(int $id): City
     {
         $url = $this->buildUrlforGetCity($id);

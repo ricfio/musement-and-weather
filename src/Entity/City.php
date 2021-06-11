@@ -7,6 +7,9 @@ namespace App\Entity;
 use InvalidArgumentException;
 use Stringable;
 
+/**
+ * @SuppressWarnings(PHPMD.ShortVariable)
+ */
 class City implements Stringable
 {
     private int $id;

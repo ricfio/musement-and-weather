@@ -36,11 +36,11 @@ final class MusementAPITest extends KernelTestCase
     {
         $cities = $this->api->getCities();
         $this->assertNotCount(0, $cities);
-        $filtered_cities = array_filter($cities, function ($city) {
+        $filteredCities = array_filter($cities, function ($city) {
             return 'Rome' == $city->getName();
         });
-        $this->assertCount(1, $filtered_cities);
-        $rome = current($filtered_cities);
+        $this->assertCount(1, $filteredCities);
+        $rome = current($filteredCities);
         $this->assertInstanceOf(City::class, $rome);
         /* @phpstan-ignore-next-line */
         if (City::class == get_class($rome)) {
