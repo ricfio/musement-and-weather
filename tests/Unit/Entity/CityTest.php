@@ -17,11 +17,6 @@ final class CityTest extends TestCase
         $this->milan = new City(1, 'Milan', 45.459, 9.183);
     }
 
-    public function testCityInstance(): void
-    {
-        $this->assertInstanceOf(City::class, $this->milan);
-    }
-
     public function testCityId(): void
     {
         $this->assertSame(1, $this->milan->getId());

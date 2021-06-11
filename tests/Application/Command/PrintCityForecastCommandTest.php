@@ -22,9 +22,8 @@ final class PrintCityForecastCommandTest extends KernelTestCase
         $command = $container->get('console.command.print_city_forecast');
         $this->assertNotNull($command);
         $this->assertInstanceOf(PrintCityForecastCommand::class, $command);
-        if (is_object($command) && PrintCityForecastCommand::class == get_class($command)) {
-            $this->command = $command;
-        }
+        /* @phpstan-ignore-next-line */
+        $this->command = $command;
     }
 
     public function testCommandHasPrinted100RowsWithExpectedFormattation(): void

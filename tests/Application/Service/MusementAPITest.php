@@ -19,10 +19,8 @@ final class MusementAPITest extends KernelTestCase
         $service = $container->get('service.musement_api');
         $this->assertNotNull($service);
         $this->assertInstanceOf(MusementAPI::class, $service);
-        if (is_object($service) && MusementAPI::class == get_class($service)) {
-            $this->api = $service;
-        }
-        $this->assertInstanceOf(MusementAPI::class, $this->api);
+        /* @phpstan-ignore-next-line */
+        $this->api = $service;
     }
 
     public function testGetCityHasFoundMilanWithRightLatitudeAndLongitude(): void
@@ -37,13 +35,15 @@ final class MusementAPITest extends KernelTestCase
     public function testGetCitiesHasFoundManyCitiesIncludingRomeWithRightLatitudeAndLongitude(): void
     {
         $cities = $this->api->getCities();
-        $this->assertIsArray($cities);
         $this->assertNotCount(0, $cities);
-        $filtered_cities = array_filter($cities, fn ($city) => 'Rome' == $city->getName());
+        $filtered_cities = array_filter($cities, function ($city) {
+            return 'Rome' == $city->getName();
+        });
         $this->assertCount(1, $filtered_cities);
         $rome = current($filtered_cities);
         $this->assertInstanceOf(City::class, $rome);
-        if (is_object($rome) && City::class == get_class($rome)) {
+        /* @phpstan-ignore-next-line */
+        if (City::class == get_class($rome)) {
             $this->assertSame('Rome', $rome->getName());
             $this->assertSame(41.898, $rome->getLatitude());
             $this->assertSame(12.483, $rome->getLongitude());
