@@ -19,8 +19,8 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 ###############################
 FROM base AS development
 
-# INSTALL: bash, git, tzdata, gettext
-RUN apk add --no-cache bash git tzdata gettext
+# INSTALL: bash, git, openssh, tzdata, gettext
+RUN apk add --no-cache bash git openssh tzdata gettext
 
 # INSTALL: Xdebug
 RUN apk --no-cache add $PHPIZE_DEPS && \
