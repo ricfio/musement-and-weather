@@ -1,4 +1,4 @@
-.PHONY: help all clean install cs cs-php-cs-fixer cs-phpmd sa sa-psalm sa-phpstan run test
+.PHONY: help all clean check install update cs cs-php-cs-fixer cs-phpmd sa sa-psalm sa-phpstan run test
 
 help:
 	@awk 'BEGIN {FS = ":.*#"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n\n"} /^[a-zA-Z0-9_-]+:.*?#/ { printf "  \033[36m%-27s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST); printf "\n"
@@ -9,8 +9,14 @@ all: cs sa test
 clean: ## Clean up the project
 	composer clearcache && rm -f composer.lock; rm -rf vendor/*
 
+check: ## Check the project
+check: cs sa test
+
 install: ## Install dependencies
 	composer install
+
+update: ## Update dependencies
+	composer update
 
 cs: ## Coding Style (php-cs-fixer, phpmd)
 cs: cs-php-cs-fixer cs-phpmd
