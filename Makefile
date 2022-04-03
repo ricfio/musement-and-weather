@@ -1,44 +1,31 @@
-.PHONY: help
-help : Makefile
-	@echo "usage: make [TARGET]"
-	@echo 
-	@sed -n 's/^## HELP://p' $<
-	@echo 
+.PHONY: help all cs cs-php-cs-fixer cs-phpmd sa sa-psalm sa-phpstan run test
 
-## HELP:  all          All checks
-.PHONY: all
+help:
+	@awk 'BEGIN {FS = ":.*#"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n\n"} /^[a-zA-Z0-9_-]+:.*?#/ { printf "  \033[36m%-27s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST); printf "\n"
+
+all: ## All checks
 all: cs sa test
 
-## HELP:  cs           Coding Style (php-cs-fixer, phpmd)
-.PHONY: cs
+cs: ## Coding Style (php-cs-fixer, phpmd)
 cs: cs-php-cs-fixer cs-phpmd
 
-.PHONY: cs-php-cs-fixer
 cs-php-cs-fixer:
 	./vendor/bin/php-cs-fixer fix
 
-.PHONY: cs-phpmd
 cs-phpmd:
 	./vendor/bin/phpmd src,tests ansi cleancode,codesize,controversial,design,naming,unusedcode --exclude src/Kernel.php
 
-## HELP:  sa           Static Analysis (psalm, phpstan)
-.PHONY: sa
+sa: ## Static Analysis (psalm, phpstan)
 sa: sa-psalm sa-phpstan
 
-.PHONY: sa-psalm
 sa-psalm:
 	./vendor/bin/psalm
 
-.PHONY: sa-phpstan
 sa-phpstan:
 	./vendor/bin/phpstan
 
-## HELP:  run          Application run
-.PHONY: run
-run:
+run: ## Application run
 	./console.php print:city-forecast
 
-## HELP:  test         Tests execution (phpunit)
-.PHONY: test
-test:
+test: ## Tests execution (phpunit)
 	./vendor/bin/phpunit --testdox
