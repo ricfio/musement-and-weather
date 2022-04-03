@@ -19,7 +19,7 @@ class Forecast implements Stringable
         $this->text = $text;
     }
 
-    final public function __toString()
+    final public function __toString(): string
     {
         return $this->text;
     }

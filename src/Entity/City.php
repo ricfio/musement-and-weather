@@ -31,7 +31,7 @@ class City implements Stringable
         $this->longitude = $longitude;
     }
 
-    final public function __toString()
+    final public function __toString(): string
     {
         return $this->name;
     }
