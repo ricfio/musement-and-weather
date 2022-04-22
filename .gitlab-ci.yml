@@ -5,9 +5,8 @@ cache:
     - vendor/
 
 before_script:
-  # Install & enable Xdebug for code coverage reports
-  - pecl install xdebug
-  - docker-php-ext-enable xdebug
+  # Install Xdebug for code coverage reports
+  - apt-get install php-xdebug
   # Install and run Composer
   - curl -sS https://getcomposer.org/installer | php
   - php composer.phar install
